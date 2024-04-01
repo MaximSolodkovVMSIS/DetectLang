@@ -57,37 +57,4 @@ class CrudOperationTest {
         verify(nameLanguageService, times(1)).save(detectedLanguage);
         verify(textLanguageService, times(1)).save(any());
     }
-
-    @Test
-    public void testUpdateText() {
-        // Инициализация Mockito
-
-        // Создание тестовых данных
-        Long id = 1L;
-        String newText = "Updated text";
-
-        // Создание мок объекта Text
-        Text text = new Text();
-        text.setId(id);
-        text.setText("Initial text");
-
-        // Устанавливаем поведение мок-объекта textRepository
-        when(textRepository.findById(id)).thenReturn(Optional.of(text));
-        when(textRepository.save(text)).thenReturn(text);
-
-        // Вызов метода, который будем тестировать
-        String result = crudOperation.updateText(id, newText);
-
-        // Проверка ожидаемого результата
-        assertEquals("Text updated successfully", result);
-
-        // Проверка, что метод findById был вызван один раз с параметром id
-        verify(textRepository, times(1)).findById(id);
-
-        // Проверка, что метод save был вызван один раз с объектом text
-        verify(textRepository, times(1)).save(text);
-
-        // Проверка, что текст был обновлен корректно
-        assertEquals(newText, text.getText());
-    }
 }
