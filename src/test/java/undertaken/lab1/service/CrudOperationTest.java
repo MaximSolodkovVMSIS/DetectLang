@@ -71,7 +71,7 @@ class CrudOperationTest {
     }
 
     @Test
-    void deleteTextFoundAndDeletedSuccessfully()  {
+    void deleteText_TextFoundAndDeletedSuccessfully()  {
         String textContent = "Hello";
         Text text = new Text();
         text.setText(textContent);
