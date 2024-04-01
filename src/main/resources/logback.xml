@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Include Spring Boot base logging configuration -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- Logger configuration for your controllers -->
+    <logger name="undertaken.lab1.controller" level="INFO">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Logger configuration for exceptions in your controllers -->
+    <logger name="undertaken.lab1.exception.ControllerException" level="INFO">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Logger configuration for caching -->
+    <appender name="CACHE_FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- Path to the cache log file -->
+        <file>log/cache.log</file>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="undertaken.lab1.cache" level="INFO">
+        <appender-ref ref="CACHE_FILE" />
+    </logger>
+
+    <!-- Logger configuration for endpoint action logging -->
+    <appender name="ENDPOINT_ACTION_FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- Path to the endpoint action log file -->
+        <file>log/endpoint_action.log</file>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="undertaken.lab1.exception.EndpointActionLogger" level="INFO">
+        <appender-ref ref="ENDPOINT_ACTION_FILE" />
+    </logger>
+
+    <!-- Logger configuration for errors -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- Path to the error log file -->
+        <file>log/errors.log</file>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="undertaken.lab1.exception.ControllerException" level="ERROR">
+        <appender-ref ref="ERROR_FILE" />
+    </logger>
+
+    <!-- Root logger configuration -->
+    <root level="ERROR">
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
