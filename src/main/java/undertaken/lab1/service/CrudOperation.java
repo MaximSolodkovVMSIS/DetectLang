@@ -52,8 +52,12 @@ public class CrudOperation {
 
     public String deleteText(String text) {
         Text textLanguage = textRepository.findByText(text);
-        textRepository.delete(textLanguage);
-        return "Text deleted successfully";
+        if(textLanguage != null) {
+            textRepository.delete(textLanguage);
+            return "Text deleted successfully";
+        } else {
+            return "Text not found";
+        }
     }
 
     @Transactional
