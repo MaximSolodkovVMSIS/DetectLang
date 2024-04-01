@@ -10,7 +10,7 @@
     </logger>
 
     <!-- Logger configuration for exceptions in your controllers -->
-    <logger name="undertaken.lab1.exception.ControllerException" level="INFO">
+    <logger name="undertaken.lab1.exception.ControllerExceptionHandler" level="INFO">
         <appender-ref ref="FILE" />
     </logger>
 
@@ -49,7 +49,7 @@
         </encoder>
     </appender>
 
-    <logger name="undertaken.lab1.exception.ControllerException" level="ERROR">
+    <logger name="undertaken.lab1.exception.ControllerExceptionHandler" level="ERROR">
         <appender-ref ref="ERROR_FILE" />
     </logger>
 

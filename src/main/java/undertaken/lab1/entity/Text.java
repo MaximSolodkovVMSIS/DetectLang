@@ -14,7 +14,7 @@ public class Text {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String text;
+    private String str;
     @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
@@ -28,11 +28,11 @@ public class Text {
     }
 
     public String getText() {
-        return text;
+        return str;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText(String str) {
+        this.str = str;
     }
 
     public Language getLanguage() {

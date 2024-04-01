@@ -12,8 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
-public class ControllerException {
-    private final Logger logger = LoggerFactory.getLogger(ControllerException.class);
+public class ControllerExceptionHandler {
+    private final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler({MissingServletRequestParameterException.class}) //отсутсвие параметра запроса
     public ResponseEntity<String> badRequestException(MissingServletRequestParameterException ex, WebRequest request) {
