@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class EndpointActionLogger {
     private final Logger logger = LoggerFactory.getLogger(EndpointActionLogger.class);
 
-    public void logAddTextAction(String text) {
-        logger.info("Adding text: {}", text);
+    public void logAddTextAction() {
+        logger.info("Adding text: ");
     }
 
     public void logDeleteTextAction(String text) {
