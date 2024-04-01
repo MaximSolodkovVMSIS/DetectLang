@@ -58,4 +58,18 @@
         <appender-ref ref="FILE" />
     </root>
 
+    <!-- Logger configuration for bulk operations -->
+    <appender name="BULK_OPERATIONS_FILE" class="ch.qos.logback.core.FileAppender">
+        <!-- Path to the bulk operations log file -->
+        <file>log/bulk_operations.log</file>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="undertaken.lab1.service.ParameterService" level="INFO">
+        <appender-ref ref="BULK_OPERATIONS_FILE" />
+    </logger>
+
+
 </configuration>

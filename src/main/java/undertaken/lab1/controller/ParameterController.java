@@ -9,8 +9,13 @@ import undertaken.lab1.service.ParameterService;
 
 @RestController
 public class ParameterController {
-    @Autowired
+
     private ParameterService parameterService;
+
+    @Autowired
+    public ParameterController(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
 
     @PostMapping("/bulk")
     public void processBulkParameters(@RequestBody ParameterList parameterList) {
