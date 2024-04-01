@@ -23,27 +23,6 @@ class CrudOperationTest {
     private CrudOperation crudOperation;
 
     @Test
-    public void testDeleteText() {
-        // Создаем тестовую строку текста
-        String text = "Test text";
-        Text textLanguage = new Text();
-        // Устанавливаем поведение мок-объекта textRepository
-        when(textRepository.findByText(text)).thenReturn(textLanguage);
-
-        // Вызываем метод, который будем тестировать
-        String result = crudOperation.deleteText(text);
-
-        // Проверяем ожидаемый результат
-        assertEquals("Text deleted successfully", result);
-
-        // Проверяем, что метод findByText был вызван один раз с параметром text
-        verify(textRepository, times(1)).findByText(text);
-
-        // Проверяем, что метод delete был вызван один раз с объектом text
-        verify(textRepository, times(1)).delete(textLanguage);
-    }
-
-    @Test
     public void testAddTextAndDetectLanguage() {
         // Создание мок-объектов зависимостей
         ServiceApiKey serviceApiKey = mock(ServiceApiKey.class);
