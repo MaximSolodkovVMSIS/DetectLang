@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 class CrudOperationTest {
     @Test
-    public void testAddTextAndDetectLanguage() {
+    void testAddTextAndDetectLanguage() {
         // Создание мок-объектов зависимостей
         ServiceApiKey serviceApiKey = mock(ServiceApiKey.class);
         LanguageDetectiveService languageDetectiveService = mock(LanguageDetectiveService.class);
