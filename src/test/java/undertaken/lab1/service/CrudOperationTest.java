@@ -24,8 +24,6 @@ class CrudOperationTest {
 
     @Test
     public void testDeleteText() {
-        MockitoAnnotations.openMocks(this);
-
         // Создаем тестовую строку текста
         String text = "Test text";
         Text textLanguage = new Text();
@@ -84,7 +82,6 @@ class CrudOperationTest {
     @Test
     public void testUpdateText() {
         // Инициализация Mockito
-        MockitoAnnotations.openMocks(this);
 
         // Создание тестовых данных
         Long id = 1L;
