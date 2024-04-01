@@ -40,42 +40,31 @@ class ControllerRestTest {
         String inputText = "Test+Text";
         String expectedOutput = "Processed Text";
 
-        // Prepare request body
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("text", inputText);
 
-        // Mock behavior of crudOperation.addTextAndDetectLanguage()
         when(crudOperation.addTextAndDetectLanguage(inputText)).thenReturn(expectedOutput);
 
-        // Call the method under test
         String result = controllerRest.addText(requestBody);
 
-        // Verify the result
         assertEquals(expectedOutput, result);
     }
 
     @Test
     void deleteText() {
-        // Prepare test data
         String value = "TestValue";
 
-        // Prepare request body
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("value", value);
 
-        // Mock behavior of crudOperation.deleteText()
         when(crudOperation.deleteText(value)).thenReturn("Deleted");
 
-        // Call the method under test
         String result = controllerRest.deleteText(requestBody);
 
-        // Verify the result
         assertEquals("Deleted", result);
 
-        // Verify endpointActionLogger.logDeleteTextAction() was called with correct value
         verify(endpointActionLogger).logDeleteTextAction(value);
 
-        // Verify crudOperation.deleteText() was called with correct value
         verify(crudOperation).deleteText(value);
     }
 

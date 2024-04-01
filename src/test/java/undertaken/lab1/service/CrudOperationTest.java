@@ -44,7 +44,6 @@ class CrudOperationTest {
         TextRepository textRepository = mock(TextRepository.class);
         LanguageRepository languageRepository = mock(LanguageRepository.class);
 
-        // Установка поведения мок-объектов
         String apiKey = "testApiKey";
         when(serviceApiKey.getApiKey()).thenReturn(apiKey);
 
@@ -76,9 +75,7 @@ class CrudOperationTest {
         Text text = new Text();
         text.setText(textContent);
         when(textRepository.findByText(textContent)).thenReturn(text);
-        // Act
         String result = crudOperation.deleteText(textContent);
-        // Assert
         assertEquals("Text deleted successfully", result);
         verify(textRepository, times(1)).delete(text);
     }
@@ -97,20 +94,20 @@ class CrudOperationTest {
         String languageName = "English";
         Language language = new Language();
         language.setName(languageName);
+
         List<Text> texts = new ArrayList<>();
         Text text1 = new Text();
         text1.setText("Hello");
         texts.add(text1);
+
         Text text2 = new Text();
         text2.setText("World");
         texts.add(text2);
         language.setTextLanguages(texts);
         when(languageRepository.findByName(languageName)).thenReturn(language);
 
-        // Act
         String result = crudOperation.deleteLanguageAndText(languageName);
 
-        // Assert
         assertEquals("Language and associated texts deleted successfully", result);
         verify(textRepository, times(1)).deleteAll(texts);
         verify(languageRepository, times(1)).delete(language);
@@ -121,10 +118,8 @@ class CrudOperationTest {
         String languageName = "UnknownLanguage";
         when(languageRepository.findByName(languageName)).thenReturn(null);
 
-        // Act
         String result = crudOperation.deleteLanguageAndText(languageName);
 
-        // Assert
         assertEquals("Language not found", result);
         verify(textRepository, never()).deleteAll(anyList());
         verify(languageRepository, never()).delete(any(Language.class));
