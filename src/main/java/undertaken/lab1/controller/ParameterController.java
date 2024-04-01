@@ -10,7 +10,7 @@ import undertaken.lab1.service.ParameterService;
 @RestController
 public class ParameterController {
 
-    private ParameterService parameterService;
+    private final ParameterService parameterService;
 
     @Autowired
     public ParameterController(ParameterService parameterService) {
