@@ -1,8 +1,6 @@
 package undertaken.lab1.service;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import undertaken.lab1.repository.LanguageRepository;
 import undertaken.lab1.repository.TextRepository;
 
@@ -12,12 +10,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 class CrudOperationTest {
-    @Mock
-    private TextRepository textRepository;
-
-    @InjectMocks
-    private CrudOperation crudOperation;
-
     @Test
     public void testAddTextAndDetectLanguage() {
         // Создание мок-объектов зависимостей
