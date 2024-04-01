@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EndpointActionLogger {
-    private final Logger logger = LoggerFactory.getLogger(EndpointActionLogger.class);
+    private Logger logger = LoggerFactory.getLogger(EndpointActionLogger.class);
 
     public void logAddTextAction() {
         logger.info("Adding text: ");
@@ -18,5 +18,9 @@ public class EndpointActionLogger {
 
     public void logDeleteLanguageAction(String language) {
         logger.info("Deleting language: {}", language);
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }
