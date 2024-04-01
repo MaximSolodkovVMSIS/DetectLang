@@ -56,7 +56,6 @@ public class CrudOperation {
 
             addedTexts.add("Text and language saved successfully");
         }
-
         return addedTexts;
     }
 
