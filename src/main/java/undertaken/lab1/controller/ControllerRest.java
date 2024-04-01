@@ -48,6 +48,7 @@ public class ControllerRest {
     public String detectLanguage(@RequestParam String text) {
         String cachedLanguage = cache.get(text);
         endpointActionLogger.logAddTextAction(text);
+        endpointActionLogger.logAddTextAction(text);
         if (cachedLanguage != null) {
             return cachedLanguage;
         }
@@ -73,6 +74,7 @@ public class ControllerRest {
     @PostMapping("/api/v1/text")
     public String addText(@RequestBody Map<String, String> requestBody) {
         String text = requestBody.get("text").replace("\\+", " ");
+        endpointActionLogger.logAddTextAction(text);
         endpointActionLogger.logAddTextAction(text);
         return crudOperation.addTextAndDetectLanguage(text);
     }
