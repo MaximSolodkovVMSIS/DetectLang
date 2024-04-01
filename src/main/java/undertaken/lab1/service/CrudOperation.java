@@ -1,6 +1,8 @@
 package undertaken.lab1.service;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -35,19 +37,27 @@ public class CrudOperation {
         this.languageRepository = languageRepository;
     }
 
-    public String addTextAndDetectLanguage(String text) {
+    public List<String> addTextsAndDetectLanguage(List<String> texts) {
         String apiKey = serviceApiKey.getApiKey();
-        String detectedLanguage = languageDetectiveService.detectLanguage(new LanguageDetectionRequest(text), apiKey);
-        Language language = nameLanguageService.findByName(detectedLanguage);
-    if (language == null) {
-        language = nameLanguageService.save(detectedLanguage);
-    }
-        Text textLanguage = new Text();
-        textLanguage.setText(text);
-        textLanguage.setLanguage(language);
-        textLanguageService.save(textLanguage);
+        List<String> addedTexts = new ArrayList<>();
 
-        return "Text and language saved successfully";
+        for (String text : texts) {
+            String detectedLanguage = languageDetectiveService.detectLanguage(new LanguageDetectionRequest(text), apiKey);
+            Language language = nameLanguageService.findByName(detectedLanguage);
+
+            if (language == null) {
+                language = nameLanguageService.save(detectedLanguage);
+            }
+
+            Text textLanguage = new Text();
+            textLanguage.setText(text);
+            textLanguage.setLanguage(language);
+            textLanguageService.save(textLanguage);
+
+            addedTexts.add("Text and language saved successfully");
+        }
+
+        return addedTexts;
     }
 
     public String deleteText(String text) {

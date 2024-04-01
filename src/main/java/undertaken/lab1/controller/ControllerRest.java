@@ -1,5 +1,6 @@
 package undertaken.lab1.controller;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import undertaken.lab1.cache.LanguageCache;
 import undertaken.lab1.dto.LanguageDetectionRequest;
+import undertaken.lab1.dto.ParameterList;
 import undertaken.lab1.entity.Language;
 import undertaken.lab1.entity.Text;
 import undertaken.lab1.exception.EndpointActionLogger;
@@ -69,10 +71,9 @@ public class ControllerRest {
         return "Text and language saved successfully";
     }
 
-    @PostMapping("/api/v1/text")
-    public String addText(@RequestBody Map<String, String> requestBody) {
-        String text = requestBody.get("text").replace("\\+", " ");
-        return crudOperation.addTextAndDetectLanguage(text);
+    @PostMapping("/api/v1/text/bulk")
+    public List<String> addTexts(@RequestBody ParameterList parameterList) {
+        return crudOperation.addTextsAndDetectLanguage(parameterList.getParameters());
     }
 
     @DeleteMapping("/api/v1/text")//пара ключ значений Map

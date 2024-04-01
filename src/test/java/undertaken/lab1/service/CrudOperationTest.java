@@ -11,6 +11,7 @@ import undertaken.lab1.repository.LanguageRepository;
 import undertaken.lab1.repository.TextRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,36 +38,37 @@ class CrudOperationTest {
 
     @Test
     void addTextAndDetectLanguage() {
+// Моки для зависимостей
         ServiceApiKey serviceApiKey = mock(ServiceApiKey.class);
         LanguageDetectiveService languageDetectiveService = mock(LanguageDetectiveService.class);
         NameLanguageService nameLanguageService = mock(NameLanguageService.class);
         TextLanguageService textLanguageService = mock(TextLanguageService.class);
-        TextRepository textRepository = mock(TextRepository.class);
-        LanguageRepository languageRepository = mock(LanguageRepository.class);
 
+        // Вводные данные
+        List<String> texts = Arrays.asList("Test text 1", "Test text 2");
         String apiKey = "testApiKey";
-        when(serviceApiKey.getApiKey()).thenReturn(apiKey);
-
         String detectedLanguage = "English";
+
+        // Устанавливаем поведение моков
+        when(serviceApiKey.getApiKey()).thenReturn(apiKey);
         when(languageDetectiveService.detectLanguage(any(), eq(apiKey))).thenReturn(detectedLanguage);
+        when(nameLanguageService.findByName(detectedLanguage)).thenReturn(null);
 
-        // Создание экземпляра класса, который тестируем
-        CrudOperation crudOperation = new CrudOperation(textLanguageService, languageDetectiveService, nameLanguageService, serviceApiKey, textRepository, languageRepository);
+        // Создаем экземпляр класса для тестирования
+        CrudOperation crudOperation = new CrudOperation(textLanguageService, languageDetectiveService, nameLanguageService, serviceApiKey, null, null);
 
-        // Вызов тестируемого метода
-        String text = "Test text";
-        String result = crudOperation.addTextAndDetectLanguage(text);
+        // Вызываем тестируемый метод
+        List<String> result = crudOperation.addTextsAndDetectLanguage(texts);
 
-        // Проверка ожидаемого результата
-        String expectedResult = "Text and language saved successfully";
-        assertEquals(expectedResult, result);
+        // Проверяем результат
+        assertEquals(Arrays.asList("Text and language saved successfully", "Text and language saved successfully"), result);
 
-        // Проверка вызовов методов зависимостей
+        // Проверяем вызовы методов
         verify(serviceApiKey, times(1)).getApiKey();
-        verify(languageDetectiveService, times(1)).detectLanguage(any(), eq(apiKey));
-        verify(nameLanguageService, times(1)).findByName(detectedLanguage);
-        verify(nameLanguageService, times(1)).save(detectedLanguage);
-        verify(textLanguageService, times(1)).save(any());
+        verify(languageDetectiveService, times(2)).detectLanguage(any(), eq(apiKey));
+        verify(nameLanguageService, times(2)).findByName(detectedLanguage);
+        verify(nameLanguageService, times(2)).save(detectedLanguage);
+        verify(textLanguageService, times(2)).save(any());
     }
 
     @Test

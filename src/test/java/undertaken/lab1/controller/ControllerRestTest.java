@@ -7,15 +7,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import undertaken.lab1.cache.LanguageCache;
+import undertaken.lab1.dto.ParameterList;
 import undertaken.lab1.exception.EndpointActionLogger;
 import undertaken.lab1.service.CrudOperation;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ControllerRestTest {
     @Mock
@@ -37,17 +39,32 @@ class ControllerRestTest {
 
     @Test
     void addText() {
-        String inputText = "Test+Text";
-        String expectedOutput = "Processed Text";
+            // Arrange
+            ParameterList parameterList = new ParameterList();
+            List<String> texts = Arrays.asList("Test Text 1", "Test Text 2");
+            parameterList.setParameters(texts);
 
-        Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("text", inputText);
+            List<String> expectedOutput = Arrays.asList("Processed Text 1", "Processed Text 2");
 
-        when(crudOperation.addTextAndDetectLanguage(inputText)).thenReturn(expectedOutput);
+            CrudOperation crudOperation = mock(CrudOperation.class);
+            when(crudOperation.addTextsAndDetectLanguage(texts)).thenReturn(expectedOutput);
 
-        String result = controllerRest.addText(requestBody);
+            ControllerRest controllerRest = new ControllerRest(
+                null, // LanguageDetectiveService
+                null, // ServiceApiKey
+                null, // NameLanguageService
+                null, // TextLanguageService
+                crudOperation, // CrudOperation
+                null, // LanguageCache
+                null // EndpointActionLogger
+        );
 
-        assertEquals(expectedOutput, result);
+            // Act
+            List<String> result = controllerRest.addTexts(parameterList);
+
+            // Assert
+            assertEquals(expectedOutput, result);
+            verify(crudOperation, times(1)).addTextsAndDetectLanguage(texts);
     }
 
     @Test
