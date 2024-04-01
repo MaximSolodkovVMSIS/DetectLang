@@ -3,8 +3,6 @@ package undertaken.lab1.service;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import undertaken.lab1.entity.Text;
 import undertaken.lab1.repository.LanguageRepository;
 import undertaken.lab1.repository.TextRepository;
 
