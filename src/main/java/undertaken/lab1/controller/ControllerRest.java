@@ -18,11 +18,7 @@ import undertaken.lab1.entity.Language;
 import undertaken.lab1.entity.Text;
 import undertaken.lab1.exception.EndpointActionLogger;
 import undertaken.lab1.model.UpdateTextModel;
-import undertaken.lab1.service.CrudOperation;
-import undertaken.lab1.service.LanguageDetectiveService;
-import undertaken.lab1.service.NameLanguageService;
-import undertaken.lab1.service.ServiceApiKey;
-import undertaken.lab1.service.TextLanguageService;
+import undertaken.lab1.service.*;
 
 
 @RestController
@@ -48,6 +44,8 @@ public class ControllerRest {
 
     @GetMapping("/api/v1/detect-language")
     public String detectLanguage(@RequestParam String text) {
+        RequestCounterService.incrementRequestCount();
+        RequestCounterService.getRequestCount();
         String cachedLanguage = cache.get(text);
         if (cachedLanguage != null) {
             return cachedLanguage;
