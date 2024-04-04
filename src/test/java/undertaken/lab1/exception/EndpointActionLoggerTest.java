@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 
 class EndpointActionLoggerTest {
 
-
     @Test
     void logAddTextAction() {
         Logger logger = mock(Logger.class);

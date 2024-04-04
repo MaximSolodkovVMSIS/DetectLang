@@ -1,6 +1,5 @@
 package undertaken.lab1.controller;
 
-import com.jayway.jsonpath.spi.cache.Cache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

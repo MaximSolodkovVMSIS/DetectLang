@@ -44,8 +44,6 @@ public class ControllerRest {
 
     @GetMapping("/api/v1/detect-language")
     public String detectLanguage(@RequestParam String text) {
-        RequestCounterService.incrementRequestCount();
-        RequestCounterService.getRequestCount();
         String cachedLanguage = cache.get(text);
         if (cachedLanguage != null) {
             return cachedLanguage;
