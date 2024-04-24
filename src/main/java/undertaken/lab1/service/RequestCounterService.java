@@ -14,5 +14,4 @@ public class RequestCounterService {
     public static synchronized void getRequestCount() {
         System.out.println(REQUEST_COUNT.get());
     }
-
 }

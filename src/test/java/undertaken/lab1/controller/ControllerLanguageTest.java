@@ -26,7 +26,6 @@ class ControllerLanguageTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     void getAllLanguages() {
         List<Language> expectedLanguages = Arrays.asList(

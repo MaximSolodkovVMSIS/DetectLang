@@ -14,10 +14,20 @@ public class Text {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String str;
+    private String text;
     @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
+
+    private String content;
+
+    public Text(String content) {
+        this.content = content;
+    }
+
+    public Text() {
+
+    }
 
     public Long getId() {
         return id;
@@ -28,11 +38,11 @@ public class Text {
     }
 
     public String getText() {
-        return str;
+        return text;
     }
 
-    public void setText(String str) {
-        this.str = str;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Language getLanguage() {

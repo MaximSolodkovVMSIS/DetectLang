@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import undertaken.lab1.dto.LanguageDetectionRequest;
@@ -39,24 +41,23 @@ public class CrudOperation {
 
     public List<String> addTextsAndDetectLanguage(List<String> texts) {
         String apiKey = serviceApiKey.getApiKey();
-        List<String> addedTexts = new ArrayList<>();
+        return texts.stream()
+                .map(text -> {
+                    String detectedLanguage = languageDetectiveService.detectLanguage(new LanguageDetectionRequest(text), apiKey);
+                    Language language = nameLanguageService.findByName(detectedLanguage);
 
-        for (String text : texts) {
-            String detectedLanguage = languageDetectiveService.detectLanguage(new LanguageDetectionRequest(text), apiKey);
-            Language language = nameLanguageService.findByName(detectedLanguage);
+                    if (language == null) {
+                        language = nameLanguageService.save(detectedLanguage);
+                    }
 
-            if (language == null) {
-                language = nameLanguageService.save(detectedLanguage);
-            }
+                    Text textLanguage = new Text();
+                    textLanguage.setText(text);
+                    textLanguage.setLanguage(language);
+                    textLanguageService.save(textLanguage);
 
-            Text textLanguage = new Text();
-            textLanguage.setText(text);
-            textLanguage.setLanguage(language);
-            textLanguageService.save(textLanguage);
-
-            addedTexts.add("Text and language saved successfully");
-        }
-        return addedTexts;
+                    return "Text and language saved successfully";
+                })
+                .collect(Collectors.toList());
     }
 
     public String deleteText(String text) {

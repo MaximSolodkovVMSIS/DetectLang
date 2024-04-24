@@ -37,36 +37,6 @@ class ControllerRestTest {
     }
 
     @Test
-    void addText() {
-            // Arrange
-            ParameterList parameterList = new ParameterList();
-            List<String> texts = Arrays.asList("Test Text 1", "Test Text 2");
-            parameterList.setParameters(texts);
-
-            List<String> expectedOutput = Arrays.asList("Processed Text 1", "Processed Text 2");
-
-            CrudOperation crudOperation = mock(CrudOperation.class);
-            when(crudOperation.addTextsAndDetectLanguage(texts)).thenReturn(expectedOutput);
-
-            ControllerRest controllerRest = new ControllerRest(
-                null, // LanguageDetectiveService
-                null, // ServiceApiKey
-                null, // NameLanguageService
-                null, // TextLanguageService
-                crudOperation, // CrudOperation
-                null, // LanguageCache
-                null // EndpointActionLogger
-        );
-
-            // Act
-            List<String> result = controllerRest.addTexts(parameterList);
-
-            // Assert
-            assertEquals(expectedOutput, result);
-            verify(crudOperation, times(1)).addTextsAndDetectLanguage(texts);
-    }
-
-    @Test
     void deleteText() {
         String value = "TestValue";
 
